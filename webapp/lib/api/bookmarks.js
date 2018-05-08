@@ -28,7 +28,7 @@ module.exports = function(app) {
   });
 
   app.patch('/api/bookmarks', function(req, res, next) {
-    if (!req.body.is_ok || !req.body.id) {
+    if (req.body.is_ok === undefined || !req.body.id) {
       return res.sendStatus(401);
     }
 
