@@ -3,7 +3,7 @@ Description=Job that runs a Bookmarks Subproject
 After=syslog.target
 
 [Service]
-WorkingDirectory=/home/ubuntu/bin/bookmarks-api
+WorkingDirectory=/home/ubuntu/bookmarks/bin/bookmarks-api
 ExecStart=/usr/bin/bash bootstrap.sh
 ExecStop=/bin/kill -TERM $MAINPID
 SuccessExitStatus=143
