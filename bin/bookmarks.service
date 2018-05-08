@@ -1,0 +1,14 @@
+[Unit]
+Description=Job that runs a Bookmarks Subproject
+After=syslog.target
+
+[Service]
+WorkingDirectory=/home/ubuntu/bookmarks-api
+ExecStart=/usr/bin/bash bootstrap.sh
+ExecStop=/bin/kill -TERM $MAINPID
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
