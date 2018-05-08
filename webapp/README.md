@@ -1,17 +1,20 @@
-# scalability-lab05: Bookmarks System
+# Bookmarks System
 
 [![Build Status](https://travis-ci.org/auth0-eng-camp/scalability-lab05.svg?branch=begin_solution)](https://travis-ci.org/auth0-eng-camp/scalability-lab05)
 
-This branch contains a possible solution for Bookmarks challenge. It is implemented with Postgresql and Rabbitmq.
+Use env variables to avoid putting them on Git:
 
-To create the required databased use the following commands:
-```
-CREATE DATABASE bookmarks;
-CREATE ROLE bmuser WITH LOGIN PASSWORD 'password1'; 
-GRANT ALL PRIVILEGES ON DATABASE bookmarks TO bmuser;
+```bash
+export PG_USER=bk_bookmarks
+export PG_PASSWORD=bk_bookmarks
+export PG_URL=bk-bookmarks.cdojwkdc2vul.us-east-2.rds.amazonaws.com
+export PG_PORT=5432
+export PG_DATABASE=bookmarks
 ```
 
-Then run the following command to populate the DB with the required tables: 
+Then, just issue `npm start`.
+
+To set up the Postgres database, you can run (it uses the same env variables set above):
 
 ```
 ./node_modules/.bin/node-pg-migrate up

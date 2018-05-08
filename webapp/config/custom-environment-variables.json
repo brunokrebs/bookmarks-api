@@ -1,0 +1,10 @@
+{
+  "db": {
+    "user": "PG_USER",
+    "password": "PG_PASSWORD",
+    "host": "PG_URL",
+    "port": "PG_PORT",
+    "name": "bookmarks",
+    "database": "PG_DATABASE"
+  }
+}
