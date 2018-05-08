@@ -21,6 +21,12 @@ async function consumeTasks() {
 
 async function checkBookmark(bookmark) {
   console.log(bookmark);
+  rp(bookmark.url)
+    .then(() => patchBookmark(bookmark, true))
+    .catch(() => patchBookmark(bookmark, false));
+}
+
+function patchBookmark(bookmark, status) {
   const options = {
     method: 'PATCH',
     uri: Config.BOOKMARKS_API,
@@ -30,12 +36,6 @@ async function checkBookmark(bookmark) {
     json: true,
   };
 
-  rp(bookmark.url)
-    .then(() => patchBookmark(bookmark, true))
-    .catch(() => patchBookmark(bookmark, false));
-}
-
-function patchBookmark(bookmark, status) {
   options.body.is_ok = true;
   rp(options).then(() => {
     console.log(`${bookmark.url} patched as ${status ? 'available' : 'not available'}`);
