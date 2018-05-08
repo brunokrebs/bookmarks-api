@@ -15,7 +15,7 @@ Reference for further reading:
 
 ### AWS AMI
 
-This Git repository contains the code of an AWS image named `bk-cw-bookmarks-image`. This image contains the code for all pieces that run on AWS EC2 instances. Sub-projects are encapsulated into their own directory. At the time of writing, there were four sub-projects:
+This Git repository contains the code of an AWS image named `bk-cw-bookmarks-image`. This image contains the code for all pieces that run on AWS EC2 instances. Sub-projects are encapsulated into their own directory. At the time of writing, there are four sub-projects:
 
 - `enqueuer`: fetches bookmarks from the `webapp` and inserts them on a SQS queue.
 - `webapp`: provides endpoints so consumers can CRUD bookmarks.
