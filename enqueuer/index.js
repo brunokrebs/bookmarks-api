@@ -1,8 +1,12 @@
 // Old code is still here in case you need to view it, but it's currently unused.
-// Use poll.js instead
-const poll = require('./poll');
+const Config = require('./config.json');
+const Poller = require('./poll');
 
-// const Config = require('./config.json');
+setInterval(async () => {
+  console.log('polling...')
+  Poller.poll();
+}, Config.POLLING_INTERVAL_IN_SECONDS * 1000);
+
 // const AWS = require('aws-sdk');
 // const rabbit = require('amqplib').connect(Config.RABBIT_URL);
 

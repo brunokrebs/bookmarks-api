@@ -9,7 +9,6 @@ const Metrics = require('./metrics');
  */
 async function poll() {
   const bookmarks = await Bookmarks.getAll();
-  console.log(bookmarks.length);
 
   const queueLength = await Queue.checkLength();
   console.log('queue length?', queueLength);
@@ -20,7 +19,6 @@ async function poll() {
       id: b.id,
       url: b.url
     });
-    // console.log('response', response);
   });
 
   const response = await Metrics.write({
@@ -28,8 +26,6 @@ async function poll() {
     queueLength: queueLength + bookmarks.length // TODO: should we read the Rabbit length instead?
   });
   console.log('Metric sent', response);
-  // TODO: clean up open connections (rabbit)
-  process.exit();
 }
 
-poll();
+module.exports = { poll }
