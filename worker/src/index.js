@@ -38,7 +38,7 @@ function patchBookmark(bookmark, status) {
 
   options.body.is_ok = true;
   rp(options).then(() => {
-    console.log(`${bookmark.url} patched as ${status ? 'available' : 'not available'}!!!`);
+    console.log(`${bookmark.url} patched as ${status ? 'available' : 'not available'}!`);
   }).catch(console.log);
 }
 
