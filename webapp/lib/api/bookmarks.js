@@ -26,5 +26,16 @@ module.exports = function(app) {
       res.sendStatus(201);
     });
   });
+
+  app.patch('/api/bookmarks', function(req, res, next) {
+    if (!req.body.is_ok || !req.body.id) {
+      return res.sendStatus(401);
+    }
+
+    bookmarks.updateStatus(req.body, (err) => {
+      if (err) { return next(err); }
+      res.sendStatus(201);
+    });
+  });
 };
 
