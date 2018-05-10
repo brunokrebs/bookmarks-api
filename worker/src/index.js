@@ -45,7 +45,7 @@ async function patchBookmark(bookmark, status) {
     json: true,
   };
 
-  options.body.is_ok = true;
+  options.body.is_ok = status;
   try {
     await rp(options);
     console.log(`${bookmark.url} patched.`);
