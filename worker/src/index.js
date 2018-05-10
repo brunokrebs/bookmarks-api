@@ -21,11 +21,18 @@ async function consumeTasks() {
 
 async function checkBookmark(bookmark) {
   console.log(bookmark);
+  let available = false;
   try {
     await rp(bookmark.url);
-    await patchBookmark(bookmark, true);
+    available = true;
   } catch (err) {
-    await patchBookmark(bookmark, false)
+    console.log(err);
+  }
+
+  try {
+    await patchBookmark(bookmark, available);
+  } catch (err) {
+    console.log(err);
   }
 }
 
