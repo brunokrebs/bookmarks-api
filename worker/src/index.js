@@ -26,7 +26,7 @@ async function checkBookmark(bookmark) {
     await rp(bookmark.url);
     available = true;
   } catch (err) {
-    console.log(err);
+    available = false;
   }
 
   try {
