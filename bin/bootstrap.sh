@@ -10,8 +10,7 @@ cd /home/ubuntu/bookmarks-api
 git pull
 
 # install subproject dependencies
-cat /etc/environment
-echo $SUBPROJECT
+source /etc/environment
 cd $SUBPROJECT
 npm i
 
