@@ -8,8 +8,8 @@ async function consumeTasks() {
     const channel = await conn.createChannel();
     await channel.assertQueue('bookmarks');
 
-    channel.consume('bookmarks', (bookmark) => {
-      checkBookmark(JSON.parse(bookmark.content.toString()));
+    channel.consume('bookmarks', async (bookmark) => {
+      await checkBookmark(JSON.parse(bookmark.content.toString()));
       channel.ack(bookmark);
     });
   } catch (err) {
@@ -21,12 +21,15 @@ async function consumeTasks() {
 
 async function checkBookmark(bookmark) {
   console.log(bookmark);
-  rp(bookmark.url)
-    .then(() => patchBookmark(bookmark, true))
-    .catch(() => patchBookmark(bookmark, false));
+  try {
+    await rp(bookmark.url);
+    await patchBookmark(bookmark, true);
+  } catch (err) {
+    await patchBookmark(bookmark, false)
+  }
 }
 
-function patchBookmark(bookmark, status) {
+async function patchBookmark(bookmark, status) {
   const options = {
     method: 'PATCH',
     uri: Config.BOOKMARKS_API,
@@ -37,9 +40,12 @@ function patchBookmark(bookmark, status) {
   };
 
   options.body.is_ok = true;
-  rp(options).then(() => {
+  try {
+    await rp(options);
     console.log(`${bookmark.url} patched as ${status ? 'available' : 'not available'}!`);
-  }).catch(console.log);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 consumeTasks();
