@@ -20,7 +20,6 @@ async function consumeTasks() {
 }
 
 async function checkBookmark(bookmark) {
-  console.log(bookmark);
   let available = false;
   try {
     await rp(bookmark.url);
@@ -32,7 +31,7 @@ async function checkBookmark(bookmark) {
   try {
     await patchBookmark(bookmark, available);
   } catch (err) {
-    console.log(err);
+    // no op
   }
 }
 
@@ -49,9 +48,9 @@ async function patchBookmark(bookmark, status) {
   options.body.is_ok = true;
   try {
     await rp(options);
-    console.log(`${bookmark.url} patched as ${status ? 'available' : 'not available'}!`);
+    console.log(`${bookmark.url} patched.`);
   } catch (err) {
-    console.log(err);
+    console.warn('error while patching bookmark - ' + (err.message ? err.message : ''));
   }
 }
 
