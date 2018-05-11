@@ -6,7 +6,7 @@ async function consumeTasks() {
   try {
     const conn = await rabbit;
     const channel = await conn.createChannel();
-    channel.prefetch(1);
+    channel.prefetch(100);
     await channel.assertQueue('bookmarks');
 
     channel.consume('bookmarks', async (bookmark) => {
