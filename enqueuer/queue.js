@@ -3,13 +3,17 @@ const rabbit = require('amqplib').connect(Config.RABBIT_URL);
 
 const QUEUE_NAME = 'bookmarks';
 
+let channel = null;
+
 // TODO: keep the channel open
 // future work?
 async function push(message) {
   // Code for writing to RabbitMQ
   try {
     const connection = await rabbit;
-    const channel = await connection.createChannel();
+    if (!channel) {
+      channel = await connection.createChannel();
+    }
     const ok = channel.assertQueue(QUEUE_NAME);
     const response = channel.sendToQueue(QUEUE_NAME, new Buffer(JSON.stringify(message)));
     return response;
@@ -22,7 +26,9 @@ async function push(message) {
 async function checkLength() {
   try {
     const connection = await rabbit;
-    const channel = await connection.createChannel();
+    if (!channel) {
+      channel = await connection.createChannel();
+    }
     const ok = channel.assertQueue(QUEUE_NAME);
     const assertion = await ok;
     console.log('why?', assertion);
